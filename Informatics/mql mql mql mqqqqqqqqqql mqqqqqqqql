@@ -1,0 +1,115 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Main {
+    public static void main(String[] args) {
+        JFrame window = new JFrame("Calculator");
+        window.setSize(500,500 );
+        window.setLayout(new GridLayout(3, 1)); //create new object here
+
+        //panel for textbox
+        JPanel textboxPanel = new JPanel(new FlowLayout()); //FlowLayout centers everything :3
+        JTextField textBox1 = new JTextField(10);
+        JTextField textBox2 =  new JTextField(10);
+
+        textboxPanel.add(textBox1);
+        textboxPanel.add(textBox2);
+
+        //panel for buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        JButton addition = new JButton("+");
+        JButton subtraction = new JButton("-");
+        JButton multiplication = new JButton("*");
+        JButton division = new JButton("/");
+
+        setStyle(addition);
+        setStyle(subtraction);
+        setStyle(multiplication);
+        setStyle(division);
+
+
+        buttonPanel.add(addition);
+        buttonPanel.add(subtraction);
+        buttonPanel.add(multiplication);
+        buttonPanel.add(division);
+
+
+        //panel for result
+        JPanel resultPanel = new JPanel(new FlowLayout());
+        JLabel result = new JLabel("Result");
+        resultPanel.add(result);
+
+        resultPanel.add(result);
+
+        window.add(resultPanel);
+        window.add(textboxPanel);
+        window.add(buttonPanel);
+        window.setVisible(true);
+
+        addition.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                calculate('+', textBox1, textBox2, result);
+
+            }
+        });
+
+        subtraction.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                calculate('-', textBox1, textBox2, result);
+
+            }
+        });
+            multiplication.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                calculate('*', textBox1, textBox2, result);
+
+            }
+        });
+            division.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                calculate('/', textBox1, textBox2, result);
+
+            }
+        });
+    }
+
+    public static void setStyle(JButton button){
+        button.setFont(new Font("Times new roman", Font.BOLD, 45));
+        button.setForeground(Color.BLACK);
+
+
+    }
+
+    public static void calculate(char operator, JTextField textBox1, JTextField textBox2, JLabel result){
+        double num1 = Double.parseDouble(textBox1.getText()); //converts into a double
+        double num2 = Double.parseDouble(textBox2.getText());
+
+
+
+        switch (operator){
+
+            case '+':
+                result.setText(String.valueOf(num1+num2));
+                break;
+            case '-':
+                result.setText(String.valueOf(num1-num2));
+                break;
+            case '*':
+                result.setText(String.valueOf(num1*num2));
+                break;
+            case '/':
+                if(num2==0){
+                      result.setText("Ne divisez pas par 0 s'il vous plait");
+                break;
+                }
+                    result.setText(String.valueOf(num1/num2));
+                break;
+
+
+        }
+
+    }
+
+}
